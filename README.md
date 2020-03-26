@@ -33,7 +33,7 @@ except KeyboardInterrupt:
 ```
 Thus a Control-C will interupt the streaming and exit the program. 
 
-Note that the loop method is not contained in the *Gst* library. Its is however in the *GObject* or *GLib* libraries. Thus it needs to be imported, instatiated and controlled with either of the following:
+Note that the loop method is not contained in the *Gst* library. It is however in the *GObject* or *GLib* libraries. Thus it needs to be imported, instatiated and controlled with either of the following:
 
 ```
 import gi
