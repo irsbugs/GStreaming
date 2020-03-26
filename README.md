@@ -4,7 +4,12 @@ This is a collection of python programs to demonstate features of the **Gstreame
 
 Previously my python approach to using google tts included the use of the module urllib to send text to google which was received back in spoken form as a stream of mp3 data. This data was fed into a mp3 player. Refer to the program `google_tts_urllib.py` for an example. 
 
-This collection of programs uses Gstreamer and its plugin's as an alternative to the urllib/mp3 player solution.
+This collection of programs uses GStreamer and its plugin's as an alternative to the urllib/mp3 player solution. In python3 the GStreamer library is imported as follows:
+```
+import gi
+gi.require_version('Gst', '1.0')
+from gi.repository import Gst
+```
 
 When a program requests data to be streamed to it needs to have a way to continue running until it has received all of the stream. With Gstreamer the ways of doing this are by the simple *polling* method or by the more complex method of *looping* and using *call backs*.
 
@@ -19,12 +24,12 @@ When polling is used then Control-C will not abort what is currently being strea
 
 However with looping, then the loop is commenced to run as follows:
 ```
-    try:
-        loop.run()
-    except KeyboardInterrupt:
-        loop.quit()
-        player.set_state(Gst.State.NULL)
-        sys.exit('\nExit via Control-C')
+try:
+    loop.run()
+except KeyboardInterrupt:
+    loop.quit()
+    player.set_state(Gst.State.NULL)
+    sys.exit('\nExit via Control-C')
 ```
 Thus a Control-C will interupt the streaming and exit the program. 
 
