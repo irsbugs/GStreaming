@@ -59,3 +59,22 @@ player = Gst.ElementFactory.make('playbin', 'player')
 ```
 
 Of the four catagories of plugins, **playback** is one of the plugins for the base set for GStreamer. [Playback](https://gstreamer.freedesktop.org/documentation/playback/index.html?gi-language=c) has eleven features of which one of them is **playbin**. [Playbin](https://gstreamer.freedesktop.org/documentation/playback/playbin.html?gi-language=c) provides a stand-alone everything-in-one abstraction for an audio and/or video player. Thus playbin is the only plugin required for the *google_tts_poll.py* and *google_tts_loop.py* programs.
+
+The example code in GStreamer documentation is often in the C programming language. This needs to be converted to python.
+
+In C language a code example may be:
+```
+player = gst_element_factory_make (playbin, "player");
+```
+In Python this is written as:
+```
+player = Gst.ElementFactory.make('playbin', 'player')
+```
+
+A python [GStreamer API reference manual](https://lazka.github.io/pgi-docs/#Gst-1.0) has been automatically created and posted on a github website. For example, the description of the API for the [Gst.ElementFactory.make()](https://lazka.github.io/pgi-docs/Gst-1.0/classes/ElementFactory.html#Gst.ElementFactory.make) function.
+
+
+
+
+
+
