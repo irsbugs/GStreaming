@@ -52,3 +52,10 @@ loop = GObject.MainLoop()
 loop.run()
 loop.quit()
 ```
+
+In both the poll and loop programs one line of the code is:
+```
+player = Gst.ElementFactory.make('playbin', 'player')
+```
+
+Of the four catagories of plugins, **playback** is one of the plugins for the base set for GStreamer. [Playback](https://gstreamer.freedesktop.org/documentation/playback/index.html?gi-language=c) has eleven features of which one of them is **playbin**. [Playbin](https://gstreamer.freedesktop.org/documentation/playback/playbin.html?gi-language=c#) provides a stand-alone everything-in-one abstraction for an audio and/or video player. Thus playbin is the only plugin required for the *google_tts_poll.py* and *google_tts_loop.py* programs.
