@@ -209,7 +209,7 @@ Factory Details:
 ... cut ...  
 ```
 
-# Recording a mp3 stream to a file
+## Recording a mp3 stream to a file
 
 The next two programs are:
 * phrase_creator.py
