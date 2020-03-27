@@ -92,7 +92,7 @@ In the above programs the "all-in-one" plugin **playbin** was used. Thus playbin
 ```
 player = Gst.ElementFactory.make('playbin', 'player')
 ```
-could instead have been built a a pipleine...
+could instead have been built in a pipleine...
 ```
 player = Gst.parse_launch('playbin')
 ```
