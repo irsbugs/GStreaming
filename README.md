@@ -270,10 +270,11 @@ The following are GStreamer links that may be useful:
 
 GStreamer [website](https://gstreamer.freedesktop.org/modules/gstreamer.html)
 
-Gstreamer [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
+GStreamer [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
 
 A GStreamer Application Development Manual (1.6.0), in C, is avaialble in [pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.7207&rep=rep1&type=pdf). Section 20.1 on page 112 describes using the *playbin* plugin.
 
 [Python GStreamer Tutorial](https://brettviren.github.io/pygst-tutorial-org/pygst-tutorial.html). Unfortunately it is in python2. There are some print statements, etc. that need to be converted to print() for python3.
 
+GStreamer API description of [playbin](https://gstreamer.freedesktop.org/documentation/playback/playbin.html?gi-language=c)
 
