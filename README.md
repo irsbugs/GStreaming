@@ -278,3 +278,8 @@ A GStreamer Application Development Manual (1.6.0), in C, is avaialble in [pdf](
 
 GStreamer API description of [playbin](https://gstreamer.freedesktop.org/documentation/playback/playbin.html?gi-language=c)
 
+## Author
+
+Ian Stewart
+
+2020-03-27
