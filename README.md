@@ -26,7 +26,7 @@ In these programs modify the code below the line `if __name__ == "__main__:"` to
 
 When *polling* is used then Control-C will not abort what is currently being streamed. It is necessary to wait until completion. In the case of streaming an internet radio staion it never completes. Therefore it requires killing the process.
 
-However, with *looping*, the loop may be halted with a Control-C and this can stop the program. The looping may be implemented as follows:
+However, with *looping*, the loop may be broken with a Control-C and this can stop the program. The looping may be implemented as follows:
 ```
 try:
     loop.run()
