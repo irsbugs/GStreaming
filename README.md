@@ -2,7 +2,7 @@
 
 ## An Introduction to using GStreamer in Python3 Programs
 
-This is a collection of python3 programs to demonstate features of the **GStreamer** (Gst) module from the gi repository. The focus is on streaming audio and the use of google translates text-to-speech (tts) facility.
+This is a collection of python3 programs to demonstate features of the **GStreamer** (Gst) module from the gi repository. The focus is on streaming audio and the use of google translates text-to-speech (tts) facility. These programs were developed on a Ubuntu/Mate 18.04 Linux laptop.
 
 Previously my python approach to using google tts included the use of the urllib module to send text to google translate which was received back in spoken form as a stream of mp3 data. This data was fed into a mp3 player. Refer to the program `google_tts_urllib.py` as an example. 
 
@@ -128,13 +128,120 @@ Two programs provided that use the Gst.parse_launch() function are:
 * mp3_to_wave_loop.py
 * mp3_to_wave_poll.py
 
-Note that the *hello.mp3* file will need to be in the same folder as these program to test the default conversion of mp3 to wave file. If the *yakety_yak.mp3* file is in the folder then convert it to the *yakety_yak.wav* file with:
+Note that the *hello.mp3* file will need to be in the same folder as these program to test the default conversion of mp3 to wave file. If the *yakety_yak.mp3* file is in the folder then use it to create the *yakety_yak.wav* file with:
 ```
 $ python3 mp3_to_wave_loop.py yakety_yak.mp3
 ```
 
 ## gst-launch-1.0 and gst-inspect-1.0
 
+With a computer using a Ubuntu distro, then it includes two GStreamer utilities that run from the bash prompt. The **gst-launch-1.0** performs in a similar way to the python code *Gst.parse_launch()*. It is used to build and test pipelines. For example the following will build a pipeline that starts mp3 data streaming from a radio station and playing on your computer.
+```
+$ gst-launch-1.0 playbin uri=http://live-radio01.mediahubaustralia.com/2LRW/mp3/
+```
+As mentioned above the python code using the poll() method of playing a radio station could not be stopped with Control-C. The above gst-launch-1.0 utility will stop with a Control-C. However using the *-e* option in the command string is considered a more graceful way of stopping.
+```
+$ gst-launch-1.0 -e playbin uri=http://live-radio01.mediahubaustralia.com/2LRW/mp3/
+```
+The **gst-inspect-1.0** utility allows you to review what plugins are installed for GStreamer. Your distro will probably have shipped with two catagories of plugins. The *base* and the *good*. Run the utility similar to:
+```
+$ gst-inspect-1.0
+gio:  giosink: GIO sink
+gio:  giosrc: GIO source
+gio:  giostreamsink: GIO stream sink
+... cut ...
+cluttergst3:  clutterautovideosink: Generic bin
+staticelements:  bin: Generic bin
+staticelements:  pipeline: Pipeline object
+
+Total count: 108 plugins, 561 features
+```
+
+Of these 108 plugins is *playback* which has 11 features of which one is *playbin*:
+```
+playback:  parsebin: Parse Bin
+playback:  urisourcebin: URI reader
+playback:  uridecodebin3: URI Decoder
+playback:  uridecodebin: URI Decoder
+playback:  decodebin3: Decoder Bin 3
+playback:  decodebin: Decoder Bin
+playback:  streamsynchronizer: Stream Synchronizer
+playback:  subtitleoverlay: Subtitle Overlay
+playback:  playsink: Player Sink
+playback:  playbin3: Player Bin 3
+playback:  playbin: Player Bin 2
+```
+Although there are many other plugins there are four main catagories, *base*, *good*, *bad*, and *ugly*, which may be installed with $ sudo atp install. 
+```
+gstreamer1.0-plugins-base - GStreamer plugins from the "base" set
+gstreamer1.0-plugins-good - GStreamer plugins from the "good" set
+gstreamer1.0-plugins-bad - GStreamer plugins from the "bad" set
+gstreamer1.0-plugins-ugly - GStreamer plugins from the "ugly" set
+```
+It is likely that your distro included the base and the good. If you wish to listen to a radio station that steams AAC data, then you will need to install the *bad* set of plugins. For example if this station has an error and does not play:
+```
+$ gst-launch-1.0 -e playbin uri=http://radionz-ice.streamguys.com/concert
+```
+Install the *bad* plugin with:
+```
+$ sudo apt install gstreamer1.0-plugins-bad
+```
+Using *gst-inspect-1.0* you will see that the plugin and feature counts have increased:
+```
+$ gst-inspect-1.0 
+... cut ...
+Total count: 230 plugins, 790 features
+```
+You may also specifically check if the AAC audio decoder is now installed with:
+```
+$ gst-inspect-1.0 faad
+Factory Details:
+  Rank                     secondary (128)
+  Long-name                AAC audio decoder
+  Klass                    Codec/Decoder/Audio
+  Description              Free MPEG-2/4 AAC decoder
+... cut ...  
+  Source module            gst-plugins-bad
+  Source release date      2019-05-29
+  Binary package           GStreamer Bad Plugins (Ubuntu)
+... cut ...  
+```
+
+# Recording a mp3 stream to a file
+
+The next two programs are:
+* phrase_creator.py
+* time_google_tts.py
+
+Note copy the folder phrase and its contents to the folder you place these programs in.
+
+If you want google translate tts to tell you the time then the response will be something like, "The time is 1 30 pm". with the response the first piece of speech, "The time is", never changes. Only the time part of the speech changes. Thus "The time is" could be recorded as a local mp3 file. This would be played first, and then the calculated time would be sent as text to google translate tts such that the returned mp3 stream would just be the time.
+
+This may be a bit pointless, but possibly it could be useful if you lost your network connection and had to switch to, say, a locally installed *espeak* to perform the tts. At least the first part of the response sentence would have good speech quality even if the last part from *espeak* was a bit like a Dalek.
+
+Run the **phrase_creator.py** program like this:
+```
+$ python3 phrase_creator.py "The quick brown fox."
+```
+Check that a mp3 file was created and can be played...
+```
+$ mplayer phrase/the_quick_brown_fox.mp3
+```
+
+The **time_google_tts.py** program is designed to play one of the local mp3 files in the *phrase/* folder. These are *the_time_is.mp3* and *todays_date_is.mp3*. After this the time or date is determined and this is sent as text to google translate tts. The response is then appended to what has been spoken. Run the program like this:
+
+```
+$ python3 time_google_tts.py time
+
+$ python3 time_google_tts.py date
+```
+If running on a Windows platform see the note at the bottom of the program.
+
+
+
+
+
+The *phrase_creator.py*
 
 ## Links
 The GStreamer [website](https://gstreamer.freedesktop.org/modules/gstreamer.html) and the [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
