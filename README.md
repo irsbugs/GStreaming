@@ -143,6 +143,8 @@ As mentioned above the python code using the poll() method of playing a radio st
 ```
 $ gst-launch-1.0 -e playbin uri=http://live-radio01.mediahubaustralia.com/2LRW/mp3/
 ```
+The *-e* is not supported in the python *Gst.parse_launch()* function.
+
 The **gst-inspect-1.0** utility allows you to review what plugins are installed for GStreamer. Your distro will probably have shipped with two catagories of plugins. The *base* and the *good*. Run the utility similar to:
 ```
 $ gst-inspect-1.0
@@ -235,24 +237,42 @@ $ python3 time_google_tts.py time
 
 $ python3 time_google_tts.py date
 ```
-If running on a Windows platform see the note at the bottom of the program.
+If running on a Windows platform see the note at the bottom of the *time_google_tts.py* program.
 
+## Internet Radio Station
 
+The next program is:
+* radio_staton.py
 
+This is a console menu driven internet radio station streamer that uses GStreamer *playbin* which is passed the uri of an internet radio station.
 
+It uses loop and call backs, rather than polling so that Control-C will stop the station that is being listened to. This is done through using try: / cxcept: 
+```
+try:
+    mainloop.run()
+    except KeyboardInterrupt:
+        print('\n Station deselected via Ctrl-C')
 
-The *phrase_creator.py*
+    pipe.set_state(Gst.State.NULL)
+```
+Without the above a Control-C would have no effect, and therefore you could not get back to the menu to select another radio station.
+
+Note that AAC streamed internet stations needed the Gstreamer "bad". You can check what is installed on you computer with
+```
+$ apt list --installed
+```
+At the start of the program edit the *station_list* to add stations that you wish to listen to.
+
 
 ## Links
-The GStreamer [website](https://gstreamer.freedesktop.org/modules/gstreamer.html) and the [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
 
-A GStreamer Application Development Manual (1.6.0), in C, is avaialble in pdf. Section 20.1 on page 112 describes using the *playbin* plugin.
-http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.7207&rep=rep1&type=pdf
+The following are GStreamer links that may be useful:
 
-A Python GStreamer Tutorial 
+GStreamer [website](https://gstreamer.freedesktop.org/modules/gstreamer.html)
+Gstreamer [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
 
-https://brettviren.github.io/pygst-tutorial-org/pygst-tutorial.html
+A GStreamer Application Development Manual (1.6.0), in C, is avaialble in [pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.7207&rep=rep1&type=pdf). Section 20.1 on page 112 describes using the *playbin* plugin.
 
-unfortunately it is in python2. There are some print statements that need to be converted to print() for python3.
+[Python GStreamer Tutorial](https://brettviren.github.io/pygst-tutorial-org/pygst-tutorial.html). Unfortunately it is in python2. There are some print statements, etc. that need to be converted to print() for python3.
 
 
