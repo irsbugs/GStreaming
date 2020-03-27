@@ -2,7 +2,7 @@
 
 ## An Introduction to using GStreamer in Python3 Programs
 
-This is a collection of Python3 programs to demonstate features of the **GStreamer** (Gst) module from the **GObject Introspection** (gi) repository. The focus is on streaming audio and the use of google translates text-to-speech (tts) facility. These programs were developed on a Ubuntu/Mate 18.04 Linux laptop.
+This is a collection of Python3 programs to demonstate features of the **GStreamer** (Gst) module from the **GObject Introspection** (gi) repository. The focus is on streaming audio and the use of *google translates text-to-speech* (tts) facility. These programs were developed on a Ubuntu/Mate 18.04 Linux laptop.
 
 Previously my Python approach to using google tts included the use of the urllib module to send text to google translate which was received back in spoken form as a stream of mp3 data. This data was fed into a mp3 player. Refer to the program `google_tts_urllib.py` as an example. 
 
