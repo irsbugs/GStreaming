@@ -215,7 +215,7 @@ The next two programs are:
 * **phrase_creator.py**
 * **time_google_tts.py**
 
-Note copy the folder phrase and its contents to the folder you place these programs in.
+Note copy the folder *phrase* and its contents to the folder you place these programs in.
 
 If you want *google translate tts* to tell you the time then the response will be something like, "The time is 1 30 pm", in which the response the first piece of speech, "The time is", never changes. Only the time component of this speech changes. Thus "The time is" could be recorded as a local mp3 file. This would be played first, and then the calculated time would be sent as text to *google translate tts* such that the returned mp3 stream would just be the time.
 
