@@ -269,6 +269,7 @@ At the start of the program edit the *station_list* to add stations that you wis
 The following are GStreamer links that may be useful:
 
 GStreamer [website](https://gstreamer.freedesktop.org/modules/gstreamer.html)
+
 Gstreamer [code repository](https://gitlab.freedesktop.org/gstreamer/gstreamer).
 
 A GStreamer Application Development Manual (1.6.0), in C, is avaialble in [pdf](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.698.7207&rep=rep1&type=pdf). Section 20.1 on page 112 describes using the *playbin* plugin.
