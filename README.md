@@ -246,7 +246,7 @@ The next program is:
 
 This is a console menu driven internet radio station streamer that uses GStreamer *playbin* which is passed the uri of an internet radio station.
 
-It uses loop and call backs, rather than polling so that Control-C will stop the station that is being listened to. This is done through using try: / cxcept: 
+It uses loop and call backs, rather than polling so that Control-C will stop the station that is being listened to. This is done through using try: / except: 
 ```
 try:
     mainloop.run()
