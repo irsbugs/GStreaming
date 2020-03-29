@@ -265,7 +265,7 @@ At the start of the program edit the *station_list* to add stations that you wis
 
 ## Espeak
 
-**Espeak** is a text-to-speech that is installed on your laptop and does not require internet access. There is also an Espeak plugin for GStreamer.
+**Espeak** is a text-to-speech synthesizer that is installed on your computer and does not require internet access. There is also an Espeak plugin for GStreamer.
 
 The program...
 
