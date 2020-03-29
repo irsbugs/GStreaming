@@ -239,7 +239,7 @@ $ python3 time_google_tts.py date
 ```
 If running on a Windows platform see the note at the bottom of the *time_google_tts.py* program.
 
-## Internet Radio Station
+## Internet Radio.
 
 The next program is:
 * **radio.py**
@@ -263,6 +263,43 @@ $ apt list --installed
 ```
 At the start of the program edit the *station_list* to add stations that you wish to listen to.
 
+## Espeak
+
+**Espeak** is a text-to-speech that is installed on your laptop and does not require internet access. There is also an Espeak plugin for GStreamer.
+
+The program...
+
+* **expeak.py**
+
+...demonstrates the functionality of *espeak* with GStreamer. See the "Notes" section at the bottom of the program for more information.
+
+Installation of espeak involves:
+```
+$ sudo apt install espeak-ng
+$ sudo apt install gstreamer1.0-espeak
+```
+
+Test espeak-ng as follows:
+```
+$ espeak-ng "hello"
+```
+Test the GStreaming of espeak
+```
+$ gst-launch-1.0 espeak text="hello using alsasink" ! alsasink
+$ gst-launch-1.0 espeak text="hello using pulsesink" ! pulsesink
+$ gst-launch-1.0 espeak text="hello using autoaudiosink" ! autoaudiosink
+
+$ gst-launch-1.0 espeak text="hello" rate=0 pitch=0 ! autoaudiosink
+$ gst-launch-1.0 espeak text="hello" rate=-50 pitch=-100 ! autoaudiosink
+
+$ gst-launch-1.0 espeak text="You can change the speed" ! speed speed=1.0 ! pulsesink
+
+$ gst-inspect-1.0 espeak
+```
+To run the epeak.py program:
+```
+python3 espeak.py "Hello this is espeak plugin for Gstreamer talking"
+```
 
 ## Links
 
