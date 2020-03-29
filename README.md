@@ -242,7 +242,7 @@ If running on a Windows platform see the note at the bottom of the *time_google_
 ## Internet Radio Station
 
 The next program is:
-* **radio_staton.py**
+* **radio.py**
 
 This is a console menu driven internet radio station streamer that uses GStreamer *playbin* which is passed the uri of an internet radio station.
 
