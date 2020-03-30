@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #!
-# radio_simple.py
+# radio.py
 #
 # Console menu driven internet radio station streamer.
 # Uses GStreamer playbin which is passed the uri of an internet radio station.
