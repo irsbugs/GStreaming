@@ -298,7 +298,7 @@ $ gst-inspect-1.0 espeak
 ```
 To run the epeak.py program:
 ```
-python3 espeak.py "Hello this is espeak plugin for Gstreamer talking"
+$ python3 espeak.py "Hello this is espeak plugin for Gstreamer talking"
 ```
 
 ## Espeak and Google switch
