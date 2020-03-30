@@ -301,6 +301,19 @@ To run the epeak.py program:
 python3 espeak.py "Hello this is espeak plugin for Gstreamer talking"
 ```
 
+## Espeak and Google switch
+
+The program...
+
+* **espeak_google.py**
+
+... is designed to check the status of the internet and if it is up it will send text to *google translates tts* servers to be returned as a mps data stream. If the network goes down then this is detected and the text is sent to *espeak* to provide the text-to-speech.
+
+While running *espeak_google.py* enable and disable your internet connection. The text to speech method that is used will automtically switch.
+
+The objective is that by default you will use the internet for the better text to speech voice quality, however in the cases where the internet is unavailable, then you can still run your program.
+
+
 ## Links
 
 The following are GStreamer links that may be useful:
