@@ -269,7 +269,7 @@ At the start of the program edit the *station_list* to add stations that you wis
 
 The program...
 
-* **expeak.py**
+* **espeak.py**
 
 ...demonstrates the functionality of *espeak* with GStreamer. See the "Notes" section at the bottom of the program for more information.
 
