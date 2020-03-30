@@ -321,7 +321,7 @@ In the above programs the design has been primarily to perform only one GStream 
 
 ...contains a `def google_setup():` method that is called once to intialize and instantiate and it returns the GStream pipeline and the loop objects. The `def google_execute(pipeline, loop, text):` method is then able to repeatedly perform text-to-speech activities.
 
-The internet radio station program above *radio.py* repeated the initialization and instantiation each time a radio station was selected. The program...
+The *radio.py*, internet radio station program above, repeated the initialization and instantiation each time a radio station was selected. The program...
 
 * **radio_efficient.py**
 
