@@ -315,11 +315,11 @@ The objective is that by default you will use the internet for the better text t
 
 ## More Efficient Program Design
 
-In the above programs the design has been primarily to perform only one GStream text-to-speech activity and then close down the program. When this design is used for repeatedly performing text-to-speech then initializaton and instantiation is repeated each time. A more efficient design is to do these setup activities once when the program is launched and then repeated perform the main activity. The program...
+In the above programs the design has been primarily to perform only one GStream text-to-speech activity and then close down the program. When this design is used for repeatedly performing text-to-speech then initializaton and instantiation are repeated each time. A more efficient design is to do these setup activities once when the program is launched and then repeatedly perform the main test-to-speech activity. The program...
 
 * **google_efficient.py**
 
-...contains a `def google_setup():` method that is called once to intialize and instantiate and it returns the GStream pipeline and the loop. The `def google_execute(pipeline, loop, text):` method then can repeatedly perform text-to-speech activities.
+...contains a `def google_setup():` method that is called once to intialize and instantiate and it returns the GStream pipeline and the loop objects. The `def google_execute(pipeline, loop, text):` method is then able to repeatedly perform text-to-speech activities.
 
 ## Links
 
