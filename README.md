@@ -354,7 +354,7 @@ def cb_radiobutton(radiobutton, index):
         pipeline.set_property('uri', uri)
         pipeline.set_state(Gst.State.PLAYING)
 ```
-The program also includes a mute checkbox and a volume sliding scale control. The *mute* and *volume* are properties of the *playbin* plugin. In the program with *playbin* instantitated as *pipline* the callbacks are as follows:
+The program also includes a mute checkbox and a volume sliding scale control. The *mute* and *volume* are properties of the *playbin* plugin. In the program with *playbin* instantitated as *pipeline* the callbacks are as follows:
 ```
 def cb_checkbox(checkbox):
     'Mute toggle on / off'
