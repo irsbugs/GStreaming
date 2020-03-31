@@ -313,6 +313,7 @@ While running *espeak_google.py* enable and disable your internet connection. Th
 
 The objective is that by default you will use the internet for the better text to speech voice quality, however in the cases where the internet is unavailable, then you can still run your program.
 
+
 ## More Efficient Program Design
 
 In the above programs the design has been primarily to perform only one GStream text-to-speech activity and then close down the program. When this design is used for repeatedly performing text-to-speech then initializaton and instantiation are repeated each time. A more efficient design is to do these setup activities once when the program is launched and then repeatedly performs the main test-to-speech activity. The program...
@@ -328,7 +329,7 @@ The *radio.py*, internet radio station program above, repeated the initializatio
 ... contains a *radio_start()* function so the initialization and instantiation is only done once on launching. After this the *radio()* function changes the stations by changing the *playbin* set_property for the uri.
 
 
-#### GUI Interface and Streaming
+## GUI Interface and Streaming
 
 The program...
 
