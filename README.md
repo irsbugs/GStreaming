@@ -327,6 +327,33 @@ The *radio.py*, internet radio station program above, repeated the initializatio
 
 ... contains a *radio_start()* function so the initialization and instantiation is only done once on launching. After this the *radio()* function changes the stations by changing the *playbin* set_property for the uri.
 
+
+#### GUI Interface and Streaming
+
+The program...
+
+* **radio_gui..py**
+
+...is based on the *radio_efficient.py* code, but uses the Gtk GUI interface to produce a window from which to select the radio stations instead of a menu on a console terminal. Every GUI has its own loop structure to maintain the window. Thus when streaming with the *playbin* plugin there is no need to create a loop specifically to maintain the streaming. With Gtk the line of code that maintains the loop is `Gtk.main()`.
+
+The `radio_gui.py` program has a set of Gtk radio buttons for radio station selection. These buttons all have the same call back function. The GStream pipeline only contains the *playbin* plugin. Thus to change stations it is merely a matter of setting the pipeline state to Null to stop the previous station from continuing to stream. Then setting the pipeline property for the uri to the new station will commence streaming of the new station once `pipeline.set_state(Gst.State.PLAYING)` occurs. The call back used is as follows:  
+
+```
+def cb_radiobutton(radiobutton, index):
+    'Call back to change radio stations'
+    if radiobutton.get_active():
+        # Change title to newly selected station
+        window.set_title("{}".format(radiobutton.get_label()))
+
+        # Stop previous radio station
+        pipeline.set_state(Gst.State.NULL)
+
+        # Select and start playing new station.
+        uri = radio_station_list[index][1]
+        pipeline.set_property('uri', uri)
+        pipeline.set_state(Gst.State.PLAYING)
+```
+
 ## Links
 
 The following are GStreamer links that may be useful:
