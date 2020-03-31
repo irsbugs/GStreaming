@@ -333,7 +333,7 @@ The *radio.py*, internet radio station program above, repeated the initializatio
 
 The program...
 
-* **radio_gui..py**
+* **radio_gui.py**
 
 ...is based on the *radio_efficient.py* code, but uses the Gtk GUI interface to produce a window from which to select the radio stations instead of a menu on a console terminal. Every GUI has its own loop structure to maintain the window. Thus when streaming with the *playbin* plugin there is no need to create a loop specifically to maintain the streaming. With Gtk the line of code that maintains the loop is `Gtk.main()`.
 
