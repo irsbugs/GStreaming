@@ -340,12 +340,9 @@ The program...
 The `radio_gui.py` program has a set of Gtk radio buttons for radio station selection. These buttons all have the same call back function. The GStream pipeline only contains the *playbin* plugin. Thus to change stations it is merely a matter of setting the pipeline state to Null to stop the previous station from continuing to stream. Then setting the pipeline property for the uri to the new station will commence streaming of the new station once `pipeline.set_state(Gst.State.PLAYING)` occurs. The call back used is as follows:  
 
 ```
-def cb_radiobutton(radiobutton, index):
+def cb_radio_button(radiobutton, index):
     'Call back to change radio stations'
     if radiobutton.get_active():
-        # Change title to newly selected station
-        window.set_title("{}".format(radiobutton.get_label()))
-
         # Stop previous radio station
         pipeline.set_state(Gst.State.NULL)
 
@@ -358,7 +355,6 @@ The program also includes a mute checkbox and a volume sliding scale control. Th
 ```
 def cb_checkbox(checkbox):
     'Mute toggle on / off'
-    #print(checkbox.get_active())
     if checkbox.get_active():
         pipeline.set_property('mute', True)
     else:
@@ -366,9 +362,26 @@ def cb_checkbox(checkbox):
 ```
 ```
 def cb_scale_moved(scale):
-    'Adjust the volume 0 to 1'
-    pipeline.set_property('volume', scale.get_value())
+    'Adjust the volume 0 to 100 to be in range 0 to 1'
+    pipeline.set_property('volume', scale.get_value()/100)
 ```
+At around line 20 in the code are three constants that may be used to set the default behaviour of the program on launching
+```
+# Station to play on launch. Enter the integer. Starts at 1
+# Enter 0 for no station to be selected on launch.
+START_STATION_NUMBER = 1
+START_MUTED = False  # <-- Boolean True or False
+START_VOLUME = 50  # <--- Range from 0 to 100
+```
+These *start* parameters may also be adjusted as arguments at the command line. See the program help
+```
+$ python3 radio_gui.py --help
+```
+Where, for example, you will see you can enter
+```
+$ python3 radio_gui.py --station 0 --volume 20 --no-muting
+```
+
 
 ## Links
 
