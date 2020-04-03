@@ -239,30 +239,6 @@ $ python3 time_google_tts.py date
 ```
 If running on a Windows platform see the note at the bottom of the *time_google_tts.py* program.
 
-## Internet Radio.
-
-The next program is:
-* **radio.py**
-
-This is a console menu driven internet radio station streamer that uses GStreamer *playbin* which is passed the uri of an internet radio station.
-
-It uses loop and call backs, rather than polling so that Control-C will stop the station that is being listened to. This is done through using try: / except: 
-```
-try:
-    mainloop.run()
-    except KeyboardInterrupt:
-        print('\n Station deselected via Ctrl-C')
-
-    pipe.set_state(Gst.State.NULL)
-```
-Without the above a Control-C would have no effect, and therefore you could not get back to the menu to select another radio station.
-
-Note that AAC streamed internet stations needed the Gstreamer "bad". You can check what is installed on you computer with
-```
-$ apt list --installed
-```
-At the start of the program edit the *station_list* to add stations that you wish to listen to.
-
 ## Espeak
 
 **Espeak** is a text-to-speech synthesizer that is installed on your computer and does not require internet access. There is also an Espeak plugin for GStreamer.
@@ -322,14 +298,38 @@ In the above programs the design has been primarily to perform only one GStream 
 
 ...contains a `def google_setup():` method that is called once to intialize and instantiate and it returns the GStream pipeline and the loop objects. The `def google_execute(pipeline, loop, text):` method is then able to repeatedly perform text-to-speech activities.
 
+
+## Internet Radio.
+
+The next program is:
+* **radio.py**
+
+This is a console menu driven internet radio station streamer that uses GStreamer *playbin* which is passed the uri of an internet radio station.
+
+It uses loop and call backs, rather than polling so that Control-C will stop the station that is being listened to. This is done through using try: / except: 
+```
+try:
+    mainloop.run()
+    except KeyboardInterrupt:
+        print('\n Station deselected via Ctrl-C')
+
+    pipe.set_state(Gst.State.NULL)
+```
+Without the above a Control-C would have no effect, and therefore you could not get back to the menu to select another radio station.
+
+Note that AAC streamed internet stations needed the Gstreamer "bad". You can check what is installed on you computer with
+```
+$ apt list --installed
+```
+At the start of the program edit the *station_list* to add stations that you wish to listen to.
+
 The *radio.py*, internet radio station program above, repeated the initialization and instantiation each time a radio station was selected. The program...
 
 * **radio_efficient.py**
 
 ... contains a *radio_start()* function so the initialization and instantiation is only done once on launching. After this the *radio()* function changes the stations by changing the *playbin* set_property for the uri.
 
-
-## GUI Interface and Streaming
+## GUI Interface and Streaming Internet Radio
 
 The program...
 
@@ -382,6 +382,42 @@ Where, for example, you will see you can enter
 $ python3 radio_gui.py --station 0 --volume 20 --no-muting
 ```
 
+## Streaming Webcam
+
+The following programs demostrate streaming of your laptops webcam...
+
+* **camera_local.py**
+* **camera_browser.py**
+
+The first program is a Gtk GUI and the images streaming from the web-cam are displayed in a Gtk.DrawingArea(). The GStreamer pipeline is as follows:
+```
+pipeline_template = """
+    v4l2src device=/dev/video0
+    ! videoconvert 
+    ! videoscale 
+    ! video/x-raw,width=320,height=240
+    ! clockoverlay shaded-background=true font-desc="Sans 16" 
+    ! autovideosink
+    """
+self.pipeline = Gst.parse_launch(pipeline_template) 
+```
+Warning: This program is unstable. You may need to launch it a few times before it runs OK.
+
+The program *camera_browser.py* launches a Gtk window and displays an explanation message, but primarily its using the looping of Gtk.Main() to keep streaming the webcam camera images to tcp 127.0.0.1:8080. It create a tab on your web-browser and this will display what your web-cam is capturing. The GStreamer pipeline is as follows:
+
+```
+pipeline_template = """
+    v4l2src device=/dev/video0
+    ! videoconvert 
+    ! videoscale 
+    ! video/x-raw,width=400,height=400
+    ! clockoverlay shaded-background=true font-desc="Sans 16" 
+    ! theoraenc 
+    ! oggmux 
+    ! tcpserversink host=127.0.0.1 port=8080
+    """
+self.pipeline = Gst.parse_launch(pipeline_template) 
+```
 
 ## Links
 
